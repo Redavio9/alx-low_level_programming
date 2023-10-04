@@ -1,56 +1,41 @@
+#include <stdio.h>
 #include <stdlib.h>
-
-
-/**
- * max - The Function
- * @coins:  The variable
- * @final: The variable
- * Return: The Return value/void
- */
-
-int max(int *coins, int final)
-{
-	int i = 0;
-	int store = 0;
-
-	while (i < 5)
-	{
-		if (coins[i] >= store && coins[i] <= final)
-			store = coins[i];
-		i++;
-	}
-	return (store);
-}
+#include "main.h"
 
 /**
- * main - The Function
- * @c:  The variable
- * @v: The Variable
- * Return: The Return value/void
+ * main - prints the minimum number of coins to
+ * make change for an amount of money
+ * @argc: number of arguments
+ * @argv: an array of arguments
+ *
+ * Return: 0 for success
  */
-
-int main(int c, char **v)
+int main(int argc, char *argv[])
 {
-	int cents;
+	int num, j, result = 0;
 	int coins[] = {25, 10, 5, 2, 1};
-	int change = 0;
 
-	if (c != 2)
+	if (argc != 2)
 	{
 		printf("Error\n");
 		return (1);
 	}
-	cents = atoi(v[1]);
-	if (cents <= 0)
+
+	num = atoi(argv[1]);
+	if (num < 0)
 	{
 		printf("0\n");
 		return (0);
 	}
-	while (cents)
+	for (j = 0; j < 5 && num >= 0; j++)
 	{
-		cents -= max(coins, cents);
-		change++;
+		while (num >= coins[j])
+		{
+			result++;
+			num -= coins[j];
+		}
 	}
-	printf("%d\n", change);
+
+	printf("%d\n", result);
 	return (0);
 }
