@@ -1,45 +1,56 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 
 /**
- * main - prints the minimum number of coins to make change for an amount of
- * money.
- * @argc: number of arguments passed to the function.
- * @argv: array of arguments passed to the function.
- *
- * Return: 0 if no errors, else 1
+ * max - The Function
+ * @coins:  The variable
+ * @final: The variable
+ * Return: The Return value/void
  */
 
-int main(int argc, char **argv)
+int max(int *coins, int final)
 {
-	int i, sum = 0;
+	int i = 0;
+	int store = 0;
 
-	if (argc != 2)
+	while (i < 5)
+	{
+		if (coins[i] >= store && coins[i] <= final)
+			store = coins[i];
+		i++;
+	}
+	return (store);
+}
+
+/**
+ * main - The Function
+ * @c:  The variable
+ * @v: The Variable
+ * Return: The Return value/void
+ */
+
+int main(int c, char **v)
+{
+	int cents;
+	int coins[] = {25, 10, 5, 2, 1};
+	int change = 0;
+
+	if (c != 2)
 	{
 		printf("Error\n");
 		return (1);
 	}
-	if (atoi(argv[1]) < 0)
+	cents = atoi(v[1]);
+	if (cents <= 0)
 	{
 		printf("0\n");
 		return (0);
 	}
-	for (i = 0; atoi(argv[1]) > 0; i++)
+	while (cents)
 	{
-		if (atoi(argv[1]) >= 25)
-			atoi(argv[1]) -= 25;
-		else if (atoi(argv[1]) >= 10)
-			atoi(argv[1]) -= 10;
-		else if (atoi(argv[1]) >= 5)
-			atoi(argv[1]) -= 5;
-		else if (atoi(argv[1]) >= 2)
-			atoi(argv[1]) -= 2;
-		else
-			atoi(argv[1]) -= 1;
-		sum++;
+		cents -= max(coins, cents);
+		change++;
 	}
-	printf("%d\n", sum);
+	printf("%d\n", change);
 	return (0);
 }
-
